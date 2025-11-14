@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hồ Cá Vui Nhộn</title>
+    <link rel="stylesheet" href="mystyle.css" />
+    <link rel="stylesheet" href="menu.css" />
+
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="index.html">
+            <img src="aquarium/logo.png" alt="Logo" />
+            </a>
+        </div>
+        <div class="title">HỒ CÁ VUI NHỘN</div>
+       <div class="controls">
+    <button class="bg-toggle" onclick="changeBackground()">Đổi cảnh nền</button> 
+
+    <select class="music-dropdown" id="music-dropdown">
+        <option value="song1" selected>Bài hát 1 - Từng ngày yêu em</option>
+        <option value="song2">Bài hát 2 - Multo</option>
+        <option value="song3">Bài hát 3 - Sài Gòn Ơi</option>
+    </select>
+
+    <button class="toggle" onclick="toggleMusic()">Bật/Tắt</button>
+
+    <audio id="audioPlayer" preload="auto">
+        <source src="aquarium/song1.mp3" type="audio/mp3" />
+    </audio>
+</div>
+    </div>
+
+    <div id="content">
+        <div id="shark">
+            <img src="aquarium/shark.gif" width="auto" height="400px" />
+        </div>
+        
+        <div id="diver1" class="diver-unit">
+            <img src="aquarium/diver1.png" width="auto" height="100px" />
+        </div>
+        <div id="diver2" class="diver-unit">
+            <img src="aquarium/diver2.png" width="auto" height="100px" />
+        </div>
+        <div id="diver3" class="diver-unit">
+            <img src="aquarium/diver3.png" width="auto" height="100px" />
+        </div>
+
+        <div id="fish-school">
+            <img src="aquarium/goldFishSchool.png" width="auto" height="80px" />
+        </div>
+        <div id="turtle">
+            <img src="aquarium/turtle.gif" width="auto" height="200px" />
+        </div>
+    </div>
+
+    <script>
+        var audioPlayer = document.getElementById('audioPlayer');
+
+        // Hàm bật/tắt nhạc
+        function toggleMusic() {
+            var toggleButton = document.querySelector('.toggle');
+            if (audioPlayer.paused) {
+                // Tự động phát nhạc khi người dùng tương tác
+                audioPlayer.play().then(() => {
+                    toggleButton.textContent = 'Tắt Nhạc';
+                }).catch(error => console.error("Tự động phát nhạc bị chặn:", error));
+            } else {
+                audioPlayer.pause();
+                toggleButton.textContent = 'Bật Nhạc';
+            }
+        }
+
+        // Thay đổi bài hát khi chọn trong dropdown
+        document.getElementById('music-dropdown').addEventListener('change', function () {
+            var selectedSong = this.value;
+            // Cập nhật src của audioPlayer và tải lại
+            audioPlayer.src = `aquarium/${selectedSong}.mp3`;
+            audioPlayer.load(); // Tải lại audio với src mới
+            audioPlayer.play().catch(error => console.error("Tự động phát nhạc bị chặn:", error));
+            document.querySelector('.toggle').textContent = 'Tắt Nhạc';
+        });
+
+        // Mảng hình nền
+        var backgrounds = [
+            'aquarium/background.jpg',
+            'aquarium/background2.jpg',
+            'aquarium/background3.jpg',
+            'aquarium/background4.jpg'
+        ];
+        var currentBg = 0;
+
+        // Hàm đổi cảnh nền
+        function changeBackground() {
+            currentBg = (currentBg + 1) % backgrounds.length;
+            document.getElementById('content').style.backgroundImage = `url('${backgrounds[currentBg]}')`;
+        }
+
+        // Cập nhật nút Bật/Tắt khi nhạc kết thúc
+        audioPlayer.addEventListener('ended', function() {
+            document.querySelector('.toggle').textContent = 'Bật/Tắt';
+        });
+    </script>
+</body>
+</html>
