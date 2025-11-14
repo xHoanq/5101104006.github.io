@@ -77,7 +77,7 @@
         document.getElementById('music-dropdown').addEventListener('change', function () {
             var selectedSong = this.value;
             // Cập nhật src của audioPlayer và tải lại
-            audioPlayer.src = `aquarium/${selectedSong}.mp3`;
+            audioPlayer.src = `${selectedSong}.mp3`;
             audioPlayer.load(); // Tải lại audio với src mới
             audioPlayer.play().catch(error => console.error("Tự động phát nhạc bị chặn:", error));
             document.querySelector('.toggle').textContent = 'Tắt Nhạc';
@@ -85,10 +85,10 @@
 
         // Mảng hình nền
         var backgrounds = [
-            'aquarium/background.jpg',
-            'aquarium/background2.jpg',
-            'aquarium/background3.jpg',
-            'aquarium/background4.jpg'
+            'background.jpg',
+            'background2.jpg',
+            'background3.jpg',
+            'background4.jpg'
         ];
         var currentBg = 0;
 
@@ -106,3 +106,4 @@
 </body>
 
 </html>
+
